@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#ffffff; --surface:#ffffff; --surface-2:#f6f8fb; --line:#e5e9f0; --line-soft:#eef1f6;
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#f6f8fb; --line:#dfe2ed; --line-soft:#dfe2ed;
   --text:#141a24; --text-dim:#586475; --text-faint:#8a94a4;
   --brand:#4f46e5; --brand-bg:#edecfd; --brand-line:#dad7fb;
   --teal:#4f46e5; --teal-dim:#4338ca; --teal-glow:#edecfd;
@@ -21,7 +21,7 @@
   --match:#5b57e0; --match-bg:#ecebfc;
   --nonmatch:#8791a3; --nonmatch-bg:#eef1f5;
   --purple:#7c5cf5;
-  --radius:15px; --shadow:0 14px 40px -18px rgba(23,33,64,.28);
+  --radius:15px; --barh:74px; --shadow:0 14px 40px -18px rgba(23,33,64,.28);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -39,12 +39,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .app{height:100vh;display:flex;position:relative}
 .rail-collapsed{flex:none;width:36px;background:var(--surface);border-right:1px solid var(--line);position:relative;z-index:8}
 .railtab{position:absolute;top:50%;right:-15px;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;
-  background:var(--surface);border:1px solid #d5dbe5;box-shadow:0 4px 14px -8px rgba(23,33,64,.3);color:var(--text-dim);
+  background:var(--surface);border:1px solid #dfe2ed;box-shadow:0 4px 14px -8px rgba(23,33,64,.3);color:var(--text-dim);
   display:grid;place-items:center;font-size:16px;cursor:pointer}
 .railtab:hover{color:var(--text);border-color:#c2cbd9}
 
 .main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;position:relative;overflow:hidden}
-.body{flex:1;min-height:0;overflow-y:auto}
+.body{flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
 .wrap{padding:26px 40px 46px;max-width:1240px;margin:0 auto}
 
 /* breadcrumb */
@@ -86,7 +86,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* assessment + results row */
 .assess-row{display:flex;gap:16px;margin-top:16px;align-items:stretch;flex-wrap:wrap}
-.assess{flex:1;min-width:340px;border:1px solid #eeecf5;border-radius:var(--radius);padding:20px 22px;
+.assess{flex:1;min-width:340px;border:1px solid #dfe2ed;border-radius:var(--radius);padding:20px 22px;
   background:
     radial-gradient(58% 115% at 0% 0%, rgba(243,206,229,.5) 0%, rgba(243,206,229,0) 60%),
     radial-gradient(52% 110% at 40% 0%, rgba(224,213,250,.45) 0%, rgba(224,213,250,0) 62%),
@@ -136,8 +136,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:18px;margin-top:20px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);position:relative;
   cursor:pointer;transition:box-shadow .16s,border-color .16s,transform .12s;display:flex;flex-direction:column;
-  overflow:hidden}
-.card:hover{border-color:#cfd6e2;box-shadow:var(--shadow);transform:translateY(-1px)}
+  overflow:hidden;box-shadow:0 2px 4px rgba(23,33,64,.04),0 10px 26px -18px rgba(23,33,64,.18)}
+.card:hover{border-color:#cfd6e2;box-shadow:0 3px 6px rgba(23,33,64,.05),0 20px 44px -18px rgba(23,33,64,.30);transform:translateY(-1px)}
 .card.sel{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-bg)}
 .card.done{opacity:.72}
 @keyframes cardFlash{0%{box-shadow:0 0 0 3px var(--flash)}100%{box-shadow:0 0 0 0 #0000}}
@@ -268,7 +268,7 @@ tbody tr:hover .row-go{opacity:1;color:var(--brand)}
   margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .sec h3 .ai-tag{color:var(--brand);background:var(--brand-bg);padding:1px 8px;border-radius:20px;font-size:9.5px;letter-spacing:.06em;text-transform:none}
 .crux{display:flex;gap:11px;align-items:flex-start;margin-bottom:20px;padding:15px 17px;border-radius:13px;
-  border:1px solid #eeecf5;background:
+  border:1px solid #dfe2ed;background:
     radial-gradient(58% 115% at 0% 0%, rgba(243,206,229,.5) 0%, rgba(243,206,229,0) 60%),
     radial-gradient(52% 110% at 40% 0%, rgba(224,213,250,.45) 0%, rgba(224,213,250,0) 62%),
     radial-gradient(58% 130% at 100% 8%, rgba(209,221,252,.5) 0%, rgba(209,221,252,0) 58%),
@@ -328,31 +328,34 @@ tbody tr:hover .row-go{opacity:1;color:var(--brand)}
   color:var(--text-faint)}
 .sc-link svg{width:13px;height:13px}
 .src-card:hover .sc-link{color:var(--brand)}
-.panel-foot{flex:none;border-top:1px solid var(--line);padding:16px 22px;background:var(--surface);display:flex;flex-direction:column;gap:11px}
+.panel-foot{flex:none;border-top:1px solid var(--line);padding:12px 22px;min-height:var(--barh);background:var(--surface);
+  display:flex;flex-direction:column;justify-content:center;gap:10px;box-shadow:0 -8px 22px -16px rgba(23,33,64,.25)}
+.foot-row{display:flex;align-items:center;gap:12px}
 .reason-sel{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--text);font-family:inherit;font-size:12.5px;outline:none;display:none}
 .reason-sel.show{display:block}
 .reason-sel:focus{border-color:var(--brand)}
-.btn{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;transition:filter .12s,background .12s;border:1px solid transparent}
+.btn{flex:none;padding:12px 18px;border-radius:999px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;transition:filter .12s,background .12s;border:1px solid transparent}
 .btn svg{width:15px;height:15px}
+.foot-lock{flex:1;display:flex;align-items:center;gap:8px;color:var(--text-dim);font-size:13.5px}
+.foot-lock svg{width:15px;height:15px;flex:none}
 .btn-reopen{background:var(--surface);color:var(--text-dim);border-color:var(--line)}
 .btn-reopen:hover{border-color:#cbd3df;color:var(--text)}
-.decide{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.dec-opt{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 10px;border-radius:11px;
-  background:var(--surface);border:1.5px solid var(--line);color:var(--text-dim);font-family:inherit;
-  font-size:13.5px;font-weight:600;cursor:pointer;transition:border-color .12s,background .12s,color .12s}
-.dec-opt svg{width:16px;height:16px}
-.dec-opt.match{background:var(--brand-bg);border-color:var(--brand-bg);color:var(--brand)}
-.dec-opt.match:hover{background:#e4e2fc;border-color:#e4e2fc}
-.dec-opt.nonmatch{background:var(--surface);border-color:var(--line);color:var(--text-dim)}
-.dec-opt.nonmatch:hover{border-color:#c4cdda;color:var(--text)}
-.dec-opt.match.sel{background:var(--match);border-color:var(--match);color:#fff}
-.dec-opt.nonmatch.sel{background:var(--nonmatch);border-color:var(--nonmatch);color:#fff}
-.cur-dec{font-size:12px;display:flex;align-items:center;gap:6px;padding:9px 12px;border-radius:9px;border:1px solid}
+.decide{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cur-dec{font-size:13px;display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:10px;border:1px solid}
 .cur-dec.matched{color:var(--match);background:var(--match-bg);border-color:#dad7fb}
 .cur-dec.nonmatch{color:var(--nonmatch);background:var(--nonmatch-bg);border-color:#dfe4ea}
 .cur-dec .linkbtn{margin-left:auto}
-.linkbtn{background:none;color:var(--text-faint);font-size:12px;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.linkbtn{background:none;color:var(--text-faint);font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
 .linkbtn:hover{color:var(--text-dim)}
+.dec-opt{display:flex;align-items:center;justify-content:center;gap:9px;height:44px;padding:0 14px;border-radius:10px;
+  font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:border-color .12s,background .12s,color .12s,filter .12s}
+.dec-opt svg{width:16px;height:16px}
+.dec-opt.match{background:#edf1fe;border:1px solid #dde5fd;color:#3e63f0}
+.dec-opt.match:hover{background:#e3eafd}
+.dec-opt.nonmatch{background:var(--surface);border:1px solid var(--line);color:var(--text)}
+.dec-opt.nonmatch:hover{border-color:#c4cdda}
+.dec-opt.match.sel{background:var(--match);border-color:var(--match);color:#fff}
+.dec-opt.nonmatch.sel{background:var(--nonmatch);border-color:var(--nonmatch);color:#fff}
 .foot-hint{font-size:11.5px;color:var(--text-faint);text-align:center}
 
 /* declaration conflict callout (panel) */
@@ -374,22 +377,37 @@ tbody tr:hover .row-go{opacity:1;color:var(--brand)}
 .conflict-chip.cleared{background:var(--surface-2);color:var(--text-faint)}
 
 /* action bar */
-.actionbar{flex:none;border-top:1px solid var(--line);background:var(--surface);padding:15px 40px;
+.actionbar{flex:none;border-top:1px solid var(--line);background:var(--surface);padding:0 40px;height:var(--barh);
   display:flex;align-items:center;gap:22px;z-index:5}
 .ab-left{flex:1;min-width:0}
 .ab-track{height:7px;border-radius:5px;background:#e5e9f0;overflow:hidden;max-width:340px}
 .ab-fill{height:100%;background:var(--brand);border-radius:5px;transition:width .45s cubic-bezier(.3,.8,.3,1);position:relative;overflow:hidden}
 .ab-fill.shine::after{content:'';position:absolute;inset:0;transform:translateX(-100%);
-  background:linear-gradient(100deg,transparent 8%,rgba(255,255,255,.9) 50%,transparent 92%);
-  animation:fillShine .8s ease-out}
+  background:linear-gradient(100deg,transparent 5%,rgba(255,255,255,.95) 50%,transparent 95%);
+  animation:fillShine 1.05s cubic-bezier(.45,0,.25,1) .05s}
 @keyframes fillShine{to{transform:translateX(100%)}}
-.ab-cta.celebrate{animation:ctaPop .64s cubic-bezier(.18,1.3,.32,1)}
-@keyframes ctaPop{0%{transform:scale(.8);filter:brightness(1.3)}44%{transform:scale(1.11);filter:brightness(1.14)}72%{transform:scale(.97)}100%{transform:scale(1);filter:brightness(1)}}
-.ab-cta.celebrate::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;animation:ctaRing .85s cubic-bezier(.2,.6,.3,1)}
-@keyframes ctaRing{0%{box-shadow:0 0 0 0 rgba(79,70,229,.6)}100%{box-shadow:0 0 0 26px rgba(79,70,229,0)}}
+/* spring pop: sine easing between extrema so velocity hits zero at each peak */
+.ab-cta.celebrate{animation:ctaPop 1.15s both, ctaBright 1.15s cubic-bezier(.25,.6,.35,1) both;will-change:transform}
+@keyframes ctaPop{
+  0%{transform:scale(.84);animation-timing-function:cubic-bezier(.3,.9,.55,1)}
+  28%{transform:scale(1.14);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  50%{transform:scale(.966);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  70%{transform:scale(1.034);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  87%{transform:scale(.992);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+  100%{transform:scale(1)}
+}
+@keyframes ctaBright{0%{filter:brightness(1.38)}100%{filter:brightness(1)}}
+/* ring: a real border scaled + faded (compositor-only) instead of animated box-shadow */
+.ab-cta.celebrate::after{content:'';position:absolute;inset:-3px;border-radius:13px;border:3px solid rgba(79,70,229,.55);
+  pointer-events:none;will-change:transform,opacity;animation:ctaRing 1.05s cubic-bezier(.2,.55,.3,1) .06s both}
+@keyframes ctaRing{0%{transform:scale(.94);opacity:1}100%{transform:scale(1.6);opacity:0}}
+/* glow: fixed halo, only its opacity animates */
+.ab-cta.celebrate::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:0 0 32px 7px rgba(79,70,229,.5);will-change:opacity;animation:ctaGlow 1.3s cubic-bezier(.3,.4,.3,1) both}
+@keyframes ctaGlow{0%{opacity:0}14%{opacity:1}100%{opacity:0}}
 .ab-text{font-size:13px;color:var(--text-dim);margin-top:9px}
 .ab-text b{color:var(--text);font-weight:700}
-.ab-cta{padding:12px 22px;border-radius:10px;font-size:14px;font-weight:600;background:var(--brand);color:#fff;
+.ab-cta{height:44px;padding:0 22px;border-radius:10px;font-size:14px;font-weight:600;background:var(--brand);color:#fff;
   display:flex;align-items:center;gap:9px;transition:filter .12s;white-space:nowrap;position:relative}
 .ab-cta svg{width:16px;height:16px}
 .ab-cta:hover:not(:disabled){filter:brightness(1.06)}
@@ -413,8 +431,57 @@ tbody tr:hover .row-go{opacity:1;color:var(--brand)}
   background:var(--surface);border-radius:9px;padding:10px 16px;white-space:nowrap}
 .ab-recall:hover{color:var(--text);border-color:#cbd3df}
 
-.scrim{position:absolute;inset:0;background:rgba(23,33,64,.28);opacity:0;pointer-events:none;transition:opacity .26s;z-index:15}
+.scrim{position:fixed;inset:0;background:rgba(23,33,64,.28);opacity:0;pointer-events:none;transition:opacity .26s;z-index:15}
 .scrim.show{opacity:1;pointer-events:auto}
+
+/* submission confirmation modal */
+.mscrim{position:fixed;inset:0;background:rgba(23,33,64,.42);opacity:0;pointer-events:none;transition:opacity .22s;z-index:70}
+.mscrim.show{opacity:1;pointer-events:auto}
+.modal{position:fixed;inset:0;display:grid;place-items:center;padding:20px;z-index:71;pointer-events:none}
+.modal.show{pointer-events:auto}
+.m-card{width:min(620px,100%);max-height:92vh;overflow-y:auto;background:var(--surface);border-radius:20px;
+  box-shadow:0 40px 90px -30px rgba(23,33,64,.45);padding:26px 28px 0;opacity:0;transform:translateY(10px) scale(.985);
+  transition:opacity .2s ease,transform .22s cubic-bezier(.2,.8,.3,1)}
+.modal.show .m-card{opacity:1;transform:none}
+.m-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.m-head h2{font-size:21px;font-weight:700;letter-spacing:-.01em}
+.m-close{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--text-dim);flex:none}
+.m-close:hover{background:var(--surface-2);color:var(--text)}
+.m-close svg{width:19px;height:19px}
+.m-warn{display:flex;align-items:center;gap:15px;padding:15px 17px;border:1px solid var(--line);border-radius:14px;margin-bottom:16px}
+.m-warn .c-ic{flex:none;width:44px;height:44px;border-radius:13px;background:#fdf3e3;color:var(--pep);display:grid;place-items:center}
+.m-warn .c-ic svg{width:21px;height:21px}
+.m-warn p{font-size:15.5px;color:var(--text)}
+.m-once{padding:17px 19px;border:1px solid #dfe2ed;border-radius:14px;margin-bottom:20px;
+  background:
+    radial-gradient(60% 120% at 100% 0%, rgba(224,229,250,.5) 0%, rgba(224,229,250,0) 60%),
+    linear-gradient(115deg,#f8fafe 0%,#f5f6fd 100%)}
+.m-once>b{display:block;font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px}
+.m-row{display:flex;gap:11px;align-items:flex-start}
+.m-row+.m-row{margin-top:10px}
+.m-row .m-ic{flex:none;display:inline-grid;place-items:center;width:19px;height:19px;margin-top:1px;color:var(--text)}
+.m-row .m-ic svg{width:17px;height:17px}
+.m-row p{font-size:14.5px;line-height:1.5;color:var(--text-dim)}
+.m-row p b{color:var(--text);font-weight:700}
+.m-label{display:block;font-size:14.5px;color:var(--text-dim);margin-bottom:9px}
+.m-label .req{color:var(--brand);font-weight:700}
+.m-comment{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.m-comment:focus-within{border-color:var(--brand)}
+.m-comment textarea{display:block;width:100%;min-height:118px;border:none;outline:none;resize:none;background:transparent;
+  font-family:inherit;font-size:15px;color:var(--text);padding:14px 16px}
+.m-comment textarea::placeholder{color:var(--text-faint)}
+.m-attach{border-top:1px solid var(--line-soft);padding:9px 12px}
+.m-clip{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--text-dim)}
+.m-clip:hover{background:var(--surface-2);color:var(--text)}
+.m-clip svg{width:17px;height:17px}
+.m-count{text-align:right;font-size:13.5px;color:var(--text-faint);margin:8px 2px 18px}
+.m-foot{display:flex;justify-content:flex-end;align-items:center;gap:22px;border-top:1px solid var(--line);
+  margin:0 -28px;padding:16px 28px;border-radius:0 0 20px 20px}
+.m-cancel{font-size:15px;font-weight:600;color:var(--text);padding:10px 6px}
+.m-cancel:hover{color:var(--text-dim)}
+.m-send{font-size:15px;font-weight:600;background:var(--brand);color:#fff;border-radius:999px;padding:13px 24px;transition:filter .12s}
+.m-send:hover:not(:disabled){filter:brightness(1.06)}
+.m-send:disabled{background:#c8cbe8;cursor:not-allowed}
 .toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface);
   border:1px solid var(--line);border-radius:11px;padding:13px 19px;font-size:13.5px;display:flex;align-items:center;gap:11px;
   box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.25s;z-index:60}
@@ -440,7 +507,7 @@ tbody tr:hover .row-go{opacity:1;color:var(--brand)}
       <div class="wrap">
         <!-- breadcrumb -->
         <div class="crumb">
-          <a href="#" class="home" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg></a>
+          <a href="#" class="home" aria-label="Home"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.667" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 21.4999V14.8332C16.5 14.6122 16.4122 14.4002 16.2559 14.244C16.0996 14.0877 15.8877 13.9999 15.6667 13.9999H12.3333C12.1123 13.9999 11.9004 14.0877 11.7441 14.244C11.5878 14.4002 11.5 14.6122 11.5 14.8332V21.4999M6.5 12.3332C6.49994 12.0908 6.55278 11.8512 6.65482 11.6313C6.75687 11.4114 6.90566 11.2164 7.09083 11.0599L12.9242 6.06073C13.225 5.80648 13.6061 5.66699 14 5.66699C14.3939 5.66699 14.775 5.80648 15.0758 6.06073L20.9092 11.0599C21.0943 11.2164 21.2431 11.4114 21.3452 11.6313C21.4472 11.8512 21.5001 12.0908 21.5 12.3332V19.8332C21.5 20.2753 21.3244 20.6992 21.0118 21.0117C20.6993 21.3243 20.2754 21.4999 19.8333 21.4999H8.16667C7.72464 21.4999 7.30072 21.3243 6.98816 21.0117C6.67559 20.6992 6.5 20.2753 6.5 19.8332V12.3332Z"/></svg></a>
           <span class="sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
           <a href="#">Customer center</a>
           <span class="sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
@@ -516,6 +583,9 @@ tbody tr:hover .row-go{opacity:1;color:var(--brand)}
     <aside class="panel" id="panel"></aside>
   </div>
 </div>
+
+<div class="mscrim" id="mscrim"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle"></div>
 
 <div class="toast" id="toast"><span class="ti"></span><span id="toastMsg"></span></div>
 
@@ -621,6 +691,8 @@ const I = {
   dash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 12h12"/></svg>',
   flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>',
   send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3.5 11 13.5"/><path d="M21 3.5 14.5 21l-3.5-7.5L3.5 10z"/></svg>',
+  tag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.5v-8a1 1 0 0 1 1-1h8l8 8-9 9z"/><circle cx="8" cy="8" r="1" fill="currentColor"/></svg>',
+  clip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5 12.5 20a5.5 5.5 0 0 1-7.8-7.8L13 3.9a3.7 3.7 0 0 1 5.2 5.2l-8.3 8.3a1.85 1.85 0 0 1-2.6-2.6L15 7.2"/></svg>',
   shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg>',
   arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
@@ -837,7 +909,7 @@ function renderActionBar(){
     </div>
     <button class="ab-cta" id="abSubmit" ${ready?'':'disabled'}>${I.send} Submit results</button>`;
   if(ready){
-    document.getElementById('abSubmit').onclick=submitForReview;
+    document.getElementById('abSubmit').onclick=openSubmitModal;
     state.completed=true;
     if(celebrate) setTimeout(()=>{        // wait for the side panel to finish sliding shut
       const cta=document.getElementById('abSubmit'), fill=document.getElementById('abFill');
@@ -938,8 +1010,8 @@ function openPanel(id){
 
     <div class="panel-foot">
       ${locked
-        ? `<div class="foot-hint" style="display:flex;align-items:center;gap:8px;justify-content:center;color:var(--text-dim)">${I.lock} This case has been submitted for sign-off.</div>
-           <button class="btn btn-reopen" id="btnRecall">${I.flag} Recall submission to edit</button>`
+        ? `<div class="foot-row"><div class="foot-lock">${I.lock}<span>Submitted for sign-off.</span></div>
+           <button class="btn btn-reopen" id="btnRecall">${I.flag} Recall to edit</button></div>`
         : `${decided?`<div class="cur-dec ${dec}">Drafted: ${dec==='matched'?'match':'non-match'} — pending submission<button class="linkbtn" id="btnClear">clear</button></div>`:''}
           <div class="decide" role="radiogroup" aria-label="Disposition decision">
             <button class="dec-opt match ${dec==='matched'?'sel':''}" role="radio" aria-checked="${dec==='matched'}" id="btnMatch">${I.userCheck}<span>Mark as match</span></button>
@@ -958,8 +1030,8 @@ function openPanel(id){
     if(decided) document.getElementById('btnClear').onclick=()=>clearDecision(id);
     const optNon=document.getElementById('btnNonmatch');
     const optMatch=document.getElementById('btnMatch');
-    optMatch.onclick=()=>setDecision(id,'matched','Confirmed true match');
-    optNon.onclick=()=>setDecision(id,'nonmatch','Cleared');
+    optMatch.onclick=()=>{ if(dec!=='matched') setDecision(id,'matched','Confirmed true match'); };
+    optNon.onclick=()=>{ if(dec!=='nonmatch') setDecision(id,'nonmatch','Cleared'); };
   }
   render();
 }
@@ -977,13 +1049,66 @@ function setDecision(id,decision,reason){
 }
 function clearDecision(id){ delete disp[id]; toast('warn',I.flag,'Draft decision cleared'); openPanel(id); }
 
-function submitForReview(){
+let submissionComment='';
+function submitForReview(comment){
   if(HITS.some(h=>!disp[h.id])) return;
+  submissionComment=comment||'';
   submitted=true;
   state.justSubmitted=true;
   toast('ok',I.check,`${HITS.length} decisions submitted to reviewer for sign-off`);
   closePanel();
   render();
+}
+
+// ───────── submission confirmation modal ─────────
+function openSubmitModal(){
+  if(submitted) return;
+  const matched=HITS.filter(h=>disp[h.id]&&disp[h.id].status==='matched');
+  const listSet=[...new Set(matched.flatMap(h=>h.lists))].sort((a,b)=>SEV_RANK[a]-SEV_RANK[b]);
+  const listNames=listSet.map(l=>`<b>${LIST_LABEL[l]}</b>`);
+  const listPhrase=listNames.length>1?listNames.slice(0,-1).join(', ')+' and '+listNames[listNames.length-1]:listNames[0]||'';
+  const rows = matched.length
+    ? [
+        [I.send,`${CLIENT.name} will be <b>matched with ${matched.length} out of ${HITS.length} cases</b>`],
+        ...(listSet.length?[[I.clock,`They will be designated ${listSet.length>1?'both as':'as'} ${listPhrase}`]]:[]),
+        [I.tag,`The customer will be labeled as <b>high-risk</b> and their account will be blocked until further review`],
+      ]
+    : [
+        [I.send,`All <b>${HITS.length} cases</b> will be cleared as <b>non-matches</b>`],
+        [I.tag,`The onboarding freeze will be lifted after reviewer sign-off`],
+      ];
+  const modal=document.getElementById('modal');
+  modal.innerHTML=`<div class="m-card" role="document">
+    <div class="m-head"><h2 id="mTitle">Submit screening results?</h2><button class="m-close" id="mClose" aria-label="Close">${I.x}</button></div>
+    <div class="m-warn"><div class="c-ic">${I.warn}</div><p>This action requires an internal review.</p></div>
+    <div class="m-once">
+      <b>Once initiated:</b>
+      ${rows.map(([ic,t])=>`<div class="m-row"><span class="m-ic">${ic}</span><p>${t}</p></div>`).join('')}
+    </div>
+    <label class="m-label" for="mComment">Comment <span class="req">*</span></label>
+    <div class="m-comment">
+      <textarea id="mComment" maxlength="200" placeholder="Let others know why you’ve made this decision"></textarea>
+      <div class="m-attach"><button class="m-clip" title="Attach a file" aria-label="Attach a file">${I.clip}</button></div>
+    </div>
+    <div class="m-count"><span id="mCount">0</span>/200</div>
+    <div class="m-foot">
+      <button class="m-cancel" id="mCancel">Cancel</button>
+      <button class="m-send" id="mSend" disabled>Send for review</button>
+    </div>
+  </div>`;
+  document.getElementById('mscrim').classList.add('show');
+  modal.classList.add('show');
+  const ta=document.getElementById('mComment'), send=document.getElementById('mSend');
+  ta.oninput=()=>{ document.getElementById('mCount').textContent=ta.value.length; send.disabled=!ta.value.trim(); };
+  send.onclick=()=>{ const c=ta.value.trim(); if(!c) return; closeSubmitModal(); submitForReview(c); };
+  document.getElementById('mCancel').onclick=closeSubmitModal;
+  document.getElementById('mClose').onclick=closeSubmitModal;
+  document.getElementById('mscrim').onclick=closeSubmitModal;
+  setTimeout(()=>ta.focus(),60);
+}
+function closeSubmitModal(){
+  document.getElementById('mscrim').classList.remove('show');
+  document.getElementById('modal').classList.remove('show');
 }
 function recall(){
   submitted=false;
@@ -1008,7 +1133,7 @@ if(filterResolved) filterResolved.onclick=function(){state.hideResolved=!state.h
 const searchInput=document.getElementById('searchInput');
 if(searchInput) searchInput.oninput=e=>{state.search=e.target.value;render();};
 document.getElementById('scrim').onclick=closePanel;
-document.addEventListener('keydown',e=>{ if(e.key==='Escape')closePanel(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(document.getElementById('modal').classList.contains('show')) closeSubmitModal(); else closePanel(); } });
 render();
 </script>
 </body>
